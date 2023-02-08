@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="21507" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_12" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21505"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="gTV-IL-0wX" customClass="HomeCollectionViewCell" customModule="SportsApp" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="183" height="168"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                <rect key="frame" x="0.0" y="0.0" width="183" height="168"/>
+                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                <subviews>
+                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="pr7-RJ-8JI">
+                        <rect key="frame" x="8" y="8" width="167" height="104"/>
+                        <constraints>
+                            <constraint firstAttribute="width" secondItem="pr7-RJ-8JI" secondAttribute="height" multiplier="167:104" id="xKg-O8-c3O"/>
+                        </constraints>
+                    </imageView>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BIn-o6-DNm">
+                        <rect key="frame" x="8" y="124" width="167" height="36"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="25"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                </subviews>
+            </view>
+            <viewLayoutGuide key="safeArea" id="ZTg-uK-7eu"/>
+            <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+            <constraints>
+                <constraint firstAttribute="trailing" secondItem="BIn-o6-DNm" secondAttribute="trailing" constant="8" id="61l-yM-dCr"/>
+                <constraint firstAttribute="bottom" secondItem="BIn-o6-DNm" secondAttribute="bottom" constant="8" id="R7o-e4-6mJ"/>
+                <constraint firstItem="pr7-RJ-8JI" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" constant="8" id="T7j-bx-g0c"/>
+                <constraint firstAttribute="trailing" secondItem="pr7-RJ-8JI" secondAttribute="trailing" constant="8" id="nG6-sF-WyI"/>
+                <constraint firstItem="BIn-o6-DNm" firstAttribute="top" secondItem="pr7-RJ-8JI" secondAttribute="bottom" constant="12" id="sw7-PD-l2O"/>
+                <constraint firstItem="BIn-o6-DNm" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" constant="8" id="u7u-7x-MOm"/>
+                <constraint firstItem="pr7-RJ-8JI" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" constant="8" id="uvZ-A5-jt4"/>
+                <constraint firstItem="BIn-o6-DNm" firstAttribute="top" secondItem="pr7-RJ-8JI" secondAttribute="bottom" constant="12" id="vw3-6x-63a"/>
+            </constraints>
+            <size key="customSize" width="233" height="206"/>
+            <connections>
+                <outlet property="imageView" destination="pr7-RJ-8JI" id="6cm-xa-CMh"/>
+            </connections>
+            <point key="canvasLocation" x="216.03053435114504" y="-7.746478873239437"/>
+        </collectionViewCell>
+    </objects>
+</document>
