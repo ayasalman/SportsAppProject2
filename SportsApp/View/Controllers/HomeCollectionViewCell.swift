@@ -10,7 +10,7 @@ import UIKit
 class HomeCollectionViewCell: UICollectionViewCell {
 
     @IBOutlet var imageView : UIImageView!
-    
+    @IBOutlet var sportLabel: UILabel!
     static let identifier = "HomeCollectionViewCell"
     
     override func awakeFromNib() {

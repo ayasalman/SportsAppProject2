@@ -45,6 +45,7 @@
             <size key="customSize" width="233" height="206"/>
             <connections>
                 <outlet property="imageView" destination="pr7-RJ-8JI" id="6cm-xa-CMh"/>
+                <outlet property="sportLabel" destination="BIn-o6-DNm" id="2hO-xA-dpm"/>
             </connections>
             <point key="canvasLocation" x="216.03053435114504" y="-7.746478873239437"/>
         </collectionViewCell>

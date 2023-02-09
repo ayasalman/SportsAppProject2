@@ -8,6 +8,9 @@
 import UIKit
 
 class LeaguesEventsVC: UIViewController ,UICollectionViewDelegate,UICollectionViewDataSource, UICollectionViewDelegateFlowLayout{
+    var sportsType : String?     // type of sport will be in this text (football , basketball , tennis , cricket)
+    var leagueID : Int?          // league ID that is required to show its own events
+    
     var arrEvants1 = [Event]()
     var arrEvents2 = [Event]()
     var arrEvents3 = [Event]()

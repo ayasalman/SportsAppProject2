@@ -11,6 +11,8 @@ class ViewController: UIViewController {
     
     @IBOutlet weak var HomeCollectionV: UICollectionView!
     
+    var sportArray : NSMutableArray = ["football" , "basketball" , "tennis" , "cricket"]
+
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
@@ -32,18 +34,24 @@ class ViewController: UIViewController {
 extension ViewController : UICollectionViewDelegate{
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         collectionView.deselectItem(at: indexPath, animated: true)
-        print("You Tapped me")
+        print("You Tapped On Sports Screen") //this command to check if it's working
+        let leagueView = storyboard?.instantiateViewController(withIdentifier: "leagueID") as! LeagueTableViewController
+        leagueView.sportType = (sportArray[indexPath.row] as! String)
+        navigationController?.pushViewController(leagueView, animated: true)
     }
 }
+
 extension ViewController : UICollectionViewDataSource{
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 16
+        return 4
     }
     
    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: HomeCollectionViewCell.identifier, for: indexPath) as! HomeCollectionViewCell
+       let cell = collectionView.dequeueReusableCell(withReuseIdentifier: HomeCollectionViewCell.identifier, for: indexPath) as! HomeCollectionViewCell
         
-        cell.configure(with: UIImage(named: "image")!)
+       //cell.configure(with: UIImage(named: "image")!)
+       cell.imageView.image = UIImage(named: sportArray[indexPath.row] as! String)
+       cell.sportLabel.text = (sportArray[indexPath.row] as! String)
         return cell
     }
     

@@ -6,49 +6,75 @@
 //
 
 import UIKit
+import Kingfisher
 
 class LeagueTableViewController: UITableViewController
 {
-
+    var leagueList : [League]=[]
+    var sportType : String?
+    var viewLeague : ViewLeague?
+    
     override func viewDidLoad()
     {
         super.viewDidLoad()
-
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem
+        viewLeague = ViewLeague()
+        viewLeague?.getLeagues(sportType: sportType ?? "football")
+        viewLeague?.bindResultToLeagueTableViewController = { () in self.renderView()}
+        tableView.reloadData()
     }
-
+    
+    override func viewWillAppear(_ animated: Bool)
+    {
+        tableView.reloadData()
+    }
+    
+    func renderView()
+    {
+        DispatchQueue.main.async
+        {
+            self.leagueList = self.viewLeague?.sportResult ?? []
+            self.tableView.reloadData()
+        }
+    }
+    
     // MARK: - Table view data source
-
+    
     override func numberOfSections(in tableView: UITableView) -> Int
     {
-        // #warning Incomplete implementation, return the number of sections
         return 1
     }
-
+    
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int
     {
-        // #warning Incomplete implementation, return the number of rows
-        return 1
+        return leagueList.count
     }
-
+    
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell
     {
         let cell = tableView.dequeueReusableCell(withIdentifier: "leagueCell", for: indexPath) as! LeagueTableViewCell
-
+        
         cell.leagueScreenNameLabel.adjustsFontSizeToFitWidth = true
-        cell.leagueScreenNameLabel.text = "League Name will Be Here"
-        cell.leagueScreenImageShow.image = UIImage(named: "ea-sports")
-
+        cell.leagueScreenNameLabel.text = leagueList[indexPath.row].league_name
+        
+        let imageURL = URL(string: leagueList[indexPath.row].league_logo ?? "https://img.freepik.com/premium-vector/system-software-update-upgrade-concept-loading-process-screen-vector-illustration_175838-2182.jpg?w=826")
+        cell.leagueScreenImageShow.kf.setImage(with: imageURL)
+        
         return cell
     }
-
+    
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat
     {
         return 100
+    }
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath)
+    {
+        print("you tapped me")
+        let eventView = storyboard?.instantiateViewController(withIdentifier: "eventsID") as! LeaguesEventsVC     //1
+        eventView.sportsType = sportType  // to give the sport type to league event screen to easy access to API
+        eventView.leagueID = leagueList[indexPath.row].league_key // to give league ID to league event screen
+        eventView.modalPresentationStyle = .fullScreen                                                            //2
+        self.present(eventView, animated: true, completion: nil)                                                  //3
     }
     
     /*
