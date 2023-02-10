@@ -24,7 +24,12 @@ class LeaguesEventsVC: UIViewController ,UICollectionViewDelegate,UICollectionVi
     var photos3 = [UIImage(named: "fault")!, UIImage(named: "begain")!, UIImage(named: "lord")!, UIImage(named: "image")!]
     
     
+    var timer : Timer?
+    var currentCellIndex = 0
 
+    @IBOutlet weak var backBtn: UIButton!
+    @IBOutlet weak var pageController: UIPageControl!
+    
     @IBOutlet weak var UpComingCollection: UICollectionView!
     
     
@@ -45,7 +50,36 @@ class LeaguesEventsVC: UIViewController ,UICollectionViewDelegate,UICollectionVi
         TeamsCollection.delegate = self
         TeamsCollection.dataSource = self
         
+        pageController.numberOfPages = photos1.count
+        
+        startTimer()
+        
     }
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        collectionView.deselectItem(at: indexPath, animated: true)
+        print("You Tapped On Sports Screen")
+    }
+    
+    func startTimer ()
+    {
+        timer = Timer.scheduledTimer(timeInterval: 2.5, target: self, selector: #selector(moveToNextIndex), userInfo: nil, repeats: true)
+    }
+    
+    @objc func moveToNextIndex()
+    {
+        if currentCellIndex < photos1.count - 1
+        {
+            currentCellIndex += 1
+        }
+        else
+        {
+            currentCellIndex = 0
+        }
+        UpComingCollection.scrollToItem(at: IndexPath(item: currentCellIndex, section: 0), at: .centeredHorizontally, animated: true)
+       pageController.currentPage = currentCellIndex
+    }
+    
+    
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         if UpComingCollection == self.UpComingCollection
         {
@@ -74,11 +108,13 @@ class LeaguesEventsVC: UIViewController ,UICollectionViewDelegate,UICollectionVi
         
         else if collectionView == self.latestEventsCollection
         {
-            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "latestCell", for: indexPath)
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "latestCell", for: indexPath) as! LatestCell
+            cell.latestImagr.image = photos2[indexPath.row]
             return cell
         }
     
-            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "teamsCell", for: indexPath)
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "teamsCell", for: indexPath) as! TeamsCell
+        cell.teamsImage.image = photos3[indexPath.row]
             return cell
         
        
@@ -89,6 +125,10 @@ class LeaguesEventsVC: UIViewController ,UICollectionViewDelegate,UICollectionVi
         return CGSize(width: collectionView.frame.width , height: collectionView.frame.height)
     }
 
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
+        return 0
+    }
 }
 
 struct Event
