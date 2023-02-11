@@ -58,6 +58,8 @@ class LeagueTableViewController: UITableViewController
         
         let imageURL = URL(string: leagueList[indexPath.row].league_logo ?? "https://img.freepik.com/premium-vector/system-software-update-upgrade-concept-loading-process-screen-vector-illustration_175838-2182.jpg?w=826")
         cell.leagueScreenImageShow.kf.setImage(with: imageURL)
+        cell.leagueScreenImageShow.layer.cornerRadius = cell.leagueScreenImageShow.frame.height/2.5
+        //to make the image in { diamond shape divide by 1.5 | circle shape divide by 2 | rounded shape divide by 2.5 }
         
         return cell
     }

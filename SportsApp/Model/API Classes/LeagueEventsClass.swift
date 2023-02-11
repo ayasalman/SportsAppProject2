@@ -7,18 +7,23 @@
 
 import Foundation
 
+
 class LeagueEvents : Decodable
 {
-    var  event_key : Int?
-    var event_date : Int?
-    var event_time: Double?
-    var event_home_team : String?
+    var event_key : Int?
+    var event_date : String? //1
+    var event_time: String? //2
+    var event_home_team : String? //3
+    var event_away_team : String? //4
+    var home_team_logo : String? //5
+    var away_team_logo : String? //6
+    
+    
+    /*
     var home_team_key:Int?
-    var event_away_team : String?
     var away_team_key : Int?
     var league_name : String?
     var league_key : Int?
-    var home_team_logo : String?
-    var away_team_logo : String?
     var league_logo : String?
+     */
 }

@@ -6,10 +6,14 @@
 //
 
 import UIKit
+import CoreData
 
 class LeaguesEventsVC: UIViewController ,UICollectionViewDelegate,UICollectionViewDataSource, UICollectionViewDelegateFlowLayout{
     var sportsType : String?     // type of sport will be in this text (football , basketball , tennis , cricket)
     var leagueID : Int?          // league ID that is required to show its own events
+    
+    var upComingList : [LeagueEvents] = []
+    var viewUpComing : ViewUpcoming?
     
     var arrEvants1 = [Event]()
     var arrEvents2 = [Event]()
@@ -26,9 +30,10 @@ class LeaguesEventsVC: UIViewController ,UICollectionViewDelegate,UICollectionVi
     
     var timer : Timer?
     var currentCellIndex = 0
-
-    @IBOutlet weak var backBtn: UIButton!
+    
     @IBOutlet weak var pageController: UIPageControl!
+    
+    @IBOutlet var heartButton: UIButton!
     
     @IBOutlet weak var UpComingCollection: UICollectionView!
     
@@ -40,7 +45,11 @@ class LeaguesEventsVC: UIViewController ,UICollectionViewDelegate,UICollectionVi
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
-        
+        viewUpComing = ViewUpcoming()
+        viewUpComing?.getUpccoming(sportType: sportsType ?? "football", leagueID: leagueID ?? 205)
+        //upComingList = ViewUpcoming?.upComingResult ?? []
+        //viewUpComing?.bindResultToLeaguesEventsVC = { () in self.renderView() }
+
         UpComingCollection.delegate = self
         UpComingCollection.dataSource = self
         
@@ -55,6 +64,45 @@ class LeaguesEventsVC: UIViewController ,UICollectionViewDelegate,UICollectionVi
         startTimer()
         
     }
+    
+    override func viewWillAppear(_ animated: Bool)
+    {
+       // collectionView.reloadData()
+    }
+    
+   /*func renderView() {
+        DispatchQueue.main.async {
+            self.upComingList = self.ViewUpcoming?.upComingResult?? []
+            //self.collectionView.reloadData()
+        }
+    }*/
+    
+    
+    
+    @IBAction func favBtn(_ sender: Any) {
+        
+        //let favouriteView = storyboard?.instantiateViewController(withIdentifier: "favID") as! FavouriteTableViewController
+        if heartButton.currentImage == UIImage(named: "heart")
+        {
+            heartButton.imageView?.image = UIImage(named: "heart.fill")
+        }
+        else if heartButton.currentImage == UIImage(named: "heart.fill")
+        {
+            heartButton.imageView?.image = UIImage(named: "heart")
+        }
+    }
+    
+    @objc
+    func addToFavourite(sender : UIButton) {
+       
+      /*   favouriteView.modalPresentationStyle = .fullScreen
+        self.present(favouriteView, animated: true,completion: nil)*/
+    }
+    @IBAction func backBtn(_ sender: UIButton) {
+        dismiss(animated: true, completion: nil)
+    }
+    
+    
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         collectionView.deselectItem(at: indexPath, animated: true)
         print("You Tapped On Sports Screen")
@@ -83,7 +131,7 @@ class LeaguesEventsVC: UIViewController ,UICollectionViewDelegate,UICollectionVi
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         if UpComingCollection == self.UpComingCollection
         {
-            return photos1.count
+            return upComingList.count
         }
         else if latestEventsCollection == self.latestEventsCollection
         {
@@ -101,8 +149,8 @@ class LeaguesEventsVC: UIViewController ,UICollectionViewDelegate,UICollectionVi
         {
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "upComingCell", for: indexPath) as! UpCommingCell
             
-            cell.upComingImage.image = photos1[indexPath.row]
-            
+          //  cell.upComingImage.image = upComingList[indexPath.row].home_team_logo
+           // cell.dateLbl.text = upComingList[indexPath.row].event_date
             return cell
         }
         
