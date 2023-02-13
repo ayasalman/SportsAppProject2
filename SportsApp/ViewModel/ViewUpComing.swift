@@ -19,7 +19,7 @@ class ViewUpcoming
     }
     
     func getUpccoming(sportType :  String,  leagueID: Int) {
-        fetchUpcomingURL.fetchURL(completionHandler: {result in self.upComingResult = result?.result}, sportType: sportType,  leagueID: leagueID)
+        FetchUpcomingURL.fetchURL(completionHandler: {result in self.upComingResult = result?.result}, sportType: sportType,  leagueID: leagueID)
     }
 }
 

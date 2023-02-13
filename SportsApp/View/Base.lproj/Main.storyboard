@@ -419,14 +419,18 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" image="ea-sports" translatesAutoresizingMaskIntoConstraints="NO" id="Ohj-PL-pvV">
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ea-sports" translatesAutoresizingMaskIntoConstraints="NO" id="Ohj-PL-pvV">
                                 <rect key="frame" x="16" y="318" width="361" height="145"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="145" id="0iW-xf-3Ng"/>
+                                </constraints>
                             </imageView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="aPb-fZ-3eS"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="orn-Gu-bML" firstAttribute="centerX" secondItem="RSZ-jr-srC" secondAttribute="centerX" id="5BF-dF-jzw"/>
+                            <constraint firstItem="Ohj-PL-pvV" firstAttribute="top" secondItem="dUs-cY-jIC" secondAttribute="bottom" constant="41" id="Cgw-S9-Icm"/>
                             <constraint firstItem="dUs-cY-jIC" firstAttribute="trailing" secondItem="RSZ-jr-srC" secondAttribute="trailingMargin" id="LAq-Yj-UDB"/>
                             <constraint firstItem="orn-Gu-bML" firstAttribute="top" secondItem="GeI-OI-qaZ" secondAttribute="bottom" constant="32" id="P6D-3m-hn6"/>
                             <constraint firstItem="Ohj-PL-pvV" firstAttribute="leading" secondItem="RSZ-jr-srC" secondAttribute="leadingMargin" id="SJL-37-SLB"/>
