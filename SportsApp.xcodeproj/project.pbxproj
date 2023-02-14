@@ -260,10 +260,10 @@
 			children = (
 				0331FE2A298B031100483B2E /* ViewController.swift */,
 				03A3BE74298BF7DA00C40A81 /* TabBarVC.swift */,
+				038A628629919010005A0184 /* LatestCell.swift */,
 				037C85E8298CE129009482BC /* HomeCollectionViewCell.swift */,
 				038A6282299184E5005A0184 /* LeaguesEventsVC.swift */,
 				038A628429918FF3005A0184 /* UpCommingCell.swift */,
-				038A628629919010005A0184 /* LatestCell.swift */,
 				038A628829919023005A0184 /* TeamsCell.swift */,
 				4C59AB00298EB64D00E58289 /* LeagueTableViewCell.swift */,
 				4C59AAFC298EB61500E58289 /* LeagueTableViewController.swift */,

@@ -264,8 +264,8 @@ class LeaguesEventsVC: UIViewController ,UICollectionViewDelegate,UICollectionVi
         {
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "upComingCell", for: indexPath) as! UpCommingCell
             
-           cell.upComingImage.kf.setImage(with: URL(string: upComingList[indexPath.row].home_team_logo!))
-            cell.upComingImage2.kf.setImage(with: URL(string: upComingList[indexPath.row].away_team_logo!))
+           cell.upComingImage.kf.setImage(with: URL(string: upComingList[indexPath.row].home_team_logo ?? ""))
+            cell.upComingImage2.kf.setImage(with: URL(string: upComingList[indexPath.row].away_team_logo ?? ""))
             cell.upComingLbl1.text = upComingList[indexPath.row].event_home_team
             cell.upComingLbl2.text = upComingList[indexPath.row].event_away_team
             cell.timeLbl.text = upComingList[indexPath.row].event_time
@@ -280,8 +280,8 @@ class LeaguesEventsVC: UIViewController ,UICollectionViewDelegate,UICollectionVi
         {
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "latestCell", for: indexPath) as! LatestCell
             
-            cell.latestImagr.kf.setImage(with: URL(string: latestCVList[indexPath.row].home_team_logo!))
-            cell.latestImage2.kf.setImage(with: URL(string: latestCVList[indexPath.row].away_team_logo!))
+            cell.latestImagr.kf.setImage(with: URL(string: latestCVList[indexPath.row].home_team_logo ?? ""))
+            cell.latestImage2.kf.setImage(with: URL(string: latestCVList[indexPath.row].away_team_logo ?? ""))
             cell.latestLbl1.text = latestCVList[indexPath.row].event_home_team
             cell.latestLbl2.text = latestCVList[indexPath.row].event_away_team
             cell.resultLbl.text = latestCVList[indexPath.row].event_final_result
@@ -293,7 +293,7 @@ class LeaguesEventsVC: UIViewController ,UICollectionViewDelegate,UICollectionVi
     
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "teamsCell", for: indexPath) as! TeamsCell
        // cell.teamsImage.image = photos3[indexPath.row]
-        cell.teamsImage.kf.setImage(with: URL(string: teamsCVList[indexPath.row].team_logo!))
+        cell.teamsImage.kf.setImage(with: URL(string: teamsCVList[indexPath.row].team_logo ?? ""))
         cell.teamsLbl.text = teamsCVList[indexPath.row].team_name
         
             return cell
