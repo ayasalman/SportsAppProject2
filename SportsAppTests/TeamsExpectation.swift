@@ -1,83 +1,68 @@
 //
-//  SportsAppTests.swift
+//  TeamsExpectation.swift
 //  SportsAppTests
 //
-//  Created by Aya on 01/02/2023.
+//  Created by Michael Hany on 14/02/2023.
 //
 
+import Foundation
 import XCTest
 @testable import SportsApp
 
-final class SportsAppTests: XCTestCase
+final class TeamssExpectation: XCTestCase
 {
-    
     override func setUpWithError() throws
     {
         // Put setup code here. This method is called before the invocation of each test method in the class.
     }
-
+    
     override func tearDownWithError() throws
     {
         // Put teardown code here. This method is called after the invocation of each test method in the class.
     }
-
-    func testFootballFetchLeagueURL ()
+    
+    func testFootballFetchEventsURL ()
     {
         let expect = expectation(description: "Wait the API")
-        fetchLeagueURL.fetchURL(completionHandler: { response in
-            guard let data : MyResult = response else {
+        FetchTeamssData.fetchURLTeams(compeletionHandeler: {response in
+            guard let data : TeamssResult = response else {
                 XCTFail()
                 expect.fulfill()
                 return
             }
             XCTAssertNotEqual(data.result.count, 0, "Football API Failed")
             expect.fulfill()
-        }, sportType: "football")
+        }, sportType: "football", leagueID: 205)
         waitForExpectations(timeout: 5)
     }
     
-    func testBaskettballFetchLeagueURL ()
+    func testBasketballFetchEventsURL ()
     {
         let expect = expectation(description: "Wait the API")
-        fetchLeagueURL.fetchURL(completionHandler: { response in
-            guard let data : MyResult = response else {
+        FetchTeamssData.fetchURLTeams(compeletionHandeler: {response in
+            guard let data : TeamssResult = response else {
                 XCTFail()
                 expect.fulfill()
                 return
             }
-            XCTAssertNotEqual(data.result.count, 0, "Basketball API Failed")
+            XCTAssertNotEqual(data.result.count, 0, "Basket API Failed")
             expect.fulfill()
-        }, sportType: "basketball")
+        }, sportType: "basketball", leagueID: 927)
         waitForExpectations(timeout: 5)
     }
     
-    func testCricketFetchLeagueURL ()
+    func testCricketFetchEventsURL ()
     {
         let expect = expectation(description: "Wait the API")
-        fetchLeagueURL.fetchURL(completionHandler: { response in
-            guard let data : MyResult = response else {
+        FetchTeamssData.fetchURLTeams(compeletionHandeler: {response in
+            guard let data : TeamssResult = response else {
                 XCTFail()
                 expect.fulfill()
                 return
             }
             XCTAssertNotEqual(data.result.count, 0, "Cricket API Failed")
             expect.fulfill()
-        }, sportType: "cricket")
-        waitForExpectations(timeout: 5)
-    }
-    
-    func testTennisFetchLeagueURL ()
-    {
-        let expect = expectation(description: "Wait the API")
-        fetchLeagueURL.fetchURL(completionHandler: { response in
-            guard let data : MyResult = response else {
-                XCTFail()
-                expect.fulfill()
-                return
-            }
-            XCTAssertNotEqual(data.result.count, 0, "Tennis API Failed")
-            expect.fulfill()
-        }, sportType: "tennis")
+        }, sportType: "cricket", leagueID: 8301)
         waitForExpectations(timeout: 5)
     }
 }
