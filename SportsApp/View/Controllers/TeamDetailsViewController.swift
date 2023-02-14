@@ -25,7 +25,7 @@ class TeamDetailsViewController: UIViewController
         super.viewDidLoad()
         playerTable.delegate = self
         playerTable.dataSource = self
-        players = teamDetailsList?.player ?? []
+        players = teamDetailsList?.players ?? []
         teamNameDetails.text = teamDetailsList?.team_name
         let imageURL = URL(string: teamDetailsList?.team_logo ?? "https://img.freepik.com/premium-vector/system-software-update-upgrade-concept-loading-process-screen-vector-illustration_175838-2182.jpg?w=826")
         teamImageDetails.kf.setImage(with: imageURL)
@@ -65,7 +65,7 @@ extension TeamDetailsViewController : UITableViewDataSource , UITableViewDelegat
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int
     {
-        return players?.count ?? 5
+        return players?.count ?? 1
     }
     
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String?
@@ -91,6 +91,4 @@ extension TeamDetailsViewController : UITableViewDataSource , UITableViewDelegat
         
         return cell
     }
-    
-    
 }

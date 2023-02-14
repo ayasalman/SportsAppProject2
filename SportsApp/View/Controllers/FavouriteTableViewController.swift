@@ -14,6 +14,7 @@ class FavouriteTableViewController: UITableViewController
 {
     var managedContext : NSManagedObjectContext!
     var savedLeagues : [NSManagedObject] = []
+    var deleteLeague : NSManagedObject?
     
     override func viewDidLoad()
     {
@@ -102,5 +103,52 @@ class FavouriteTableViewController: UITableViewController
             alert.addAction(UIAlertAction(title: "Cancel", style: .cancel))
             self.present(alert, animated: true, completion: nil)
         }
+    }
+    
+    override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool
+    {
+        return true
+    }
+    
+    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath)
+    {
+        tableView.reloadData()
+        if editingStyle == .delete
+        {
+            let alert : UIAlertController = UIAlertController(title: "Delete Sport League ?", message: "Are you sure that you want to delete this league from your favourite offline saved list", preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "Delete", style: .default, handler: {action in
+                
+                let appDelegate = UIApplication.shared.delegate as! AppDelegate
+                self.managedContext = appDelegate.persistentContainer.viewContext
+                let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: "Fav")
+                self.deleteLeague = self.savedLeagues[indexPath.row]
+                fetchRequest.predicate = NSPredicate(format: "league_name == %@",self.deleteLeague?.value(forKey: "league_name")! as! CVarArg)
+                self.managedContext.delete(self.deleteLeague!)
+                do
+                {
+                    try self.managedContext.save()
+                    tableView.reloadData()
+                }catch let error
+                {
+                    print(error.localizedDescription)
+                }
+                tableView.reloadData()
+            }))
+            alert.addAction(UIAlertAction(title: "Cancel", style: .cancel))
+            self.present(alert, animated: true, completion: nil)
+            tableView.reloadData()
+        }
+        /*let appDelegate = UIApplication.shared.delegate as! AppDelegate
+        self.managedContext = appDelegate.persistentContainer.viewContext
+        let fetchRequests = NSFetchRequest<NSManagedObject>(entityName: "Fav")
+        do
+        {
+            savedLeagues = try managedContext.fetch(fetchRequests)
+            tableView.reloadData()
+        } catch let error
+        {
+            print(error.localizedDescription)
+        }
+        tableView.reloadData()*/
     }
 }
