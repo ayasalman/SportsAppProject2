@@ -24,14 +24,14 @@
                     </imageView>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BIn-o6-DNm">
                         <rect key="frame" x="8" y="124" width="167" height="36"/>
-                        <fontDescription key="fontDescription" type="system" pointSize="25"/>
-                        <nil key="textColor"/>
-                        <nil key="highlightedColor"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="31"/>
+                        <color key="textColor" red="0.21538633109999999" green="0.59537202119999999" blue="0.31250861289999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="highlightedColor" red="0.20866164644863042" green="0.78989229434597585" blue="0.36117714196578304" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </label>
                 </subviews>
             </view>
             <viewLayoutGuide key="safeArea" id="ZTg-uK-7eu"/>
-            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+            <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <constraints>
                 <constraint firstAttribute="trailing" secondItem="BIn-o6-DNm" secondAttribute="trailing" constant="8" id="61l-yM-dCr"/>
                 <constraint firstAttribute="bottom" secondItem="BIn-o6-DNm" secondAttribute="bottom" constant="8" id="R7o-e4-6mJ"/>

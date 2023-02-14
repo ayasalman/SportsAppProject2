@@ -228,19 +228,19 @@ class LeaguesEventsVC: UIViewController ,UICollectionViewDelegate,UICollectionVi
 //        timer = Timer.scheduledTimer(timeInterval: 2.5, target: self, selector: #selector(moveToNextIndex), userInfo: nil, repeats: true)
 //    }
 //
-//    @objc func moveToNextIndex()
-//    {
-//        if currentCellIndex < photos1.count - 1
-//        {
-//            currentCellIndex += 1
-//        }
-//        else
-//        {
-//            currentCellIndex = 0
-//        }
-//        UpComingCollection.scrollToItem(at: IndexPath(item: currentCellIndex, section: 0), at: .centeredHorizontally, animated: true)
-//       pageController.currentPage = currentCellIndex
-//    }
+    @objc func moveToNextIndex()
+    {
+       if currentCellIndex < upComingList.count - 1
+        {
+            currentCellIndex += 1
+     }
+        else
+        {
+            currentCellIndex = 0
+        }
+        UpComingCollection.scrollToItem(at: IndexPath(item: currentCellIndex, section: 0), at: .centeredHorizontally, animated: true)
+       pageController.currentPage = currentCellIndex
+    }
     
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -303,13 +303,20 @@ class LeaguesEventsVC: UIViewController ,UICollectionViewDelegate,UICollectionVi
     
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: collectionView.frame.width , height: collectionView.frame.height)
+        return CGSize(width: collectionView.frame.width , height: collectionView.frame.height )
     }
+    
+   
+   
+   
+    
+
+
 
     
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
-        return 0
-    }
+   func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
+       return 0
+       }
 }
 
 struct Event
