@@ -22,6 +22,9 @@ class LeagueEvents : Decodable
     var Event_away_team_logo : String?
     
     
+   // var event_home_team_logo : String
+  //  var event_away_team_logo : String?
+    
     /*
     var home_team_key:Int?
     var away_team_key : Int?

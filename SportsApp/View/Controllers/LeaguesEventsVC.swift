@@ -12,13 +12,13 @@ class LeaguesEventsVC: UIViewController ,UICollectionViewDelegate,UICollectionVi
     var sportsType : String?     // type of sport will be in this text (football , basketball , tennis , cricket)
     var leagueID : Int?          // league ID that is required to show its own events
     
-    var teamsCVList : [TeamssEvents] = []
+    var teamsCVList : [TeamssEvents]?
     var viewTeamssCv : ViewTeamsCV?
     
-    var upComingList : [LeagueEvents] = []
+    var upComingList : [LeagueEvents]?
     var viewUpComing : ViewUpcoming?
     
-    var latestCVList : [LatestEvents] = []
+    var latestCVList : [LatestEvents]?
     var viewLatest :ViewLatestCollection?
     
     var arrEvants1 = [Event]()
@@ -176,15 +176,15 @@ class LeaguesEventsVC: UIViewController ,UICollectionViewDelegate,UICollectionVi
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         if collectionView == self.UpComingCollection
         {
-            return upComingList.count
+            return upComingList?.count ?? 0
         }
         else if collectionView == self.latestEventsCollection
         {
-            return latestCVList.count
+            return latestCVList?.count ?? 0
         }
         else if collectionView == self.TeamsCollection
         {
-            return teamsCVList.count
+            return teamsCVList?.count ?? 0
         }
        return 0
     }
@@ -194,12 +194,12 @@ class LeaguesEventsVC: UIViewController ,UICollectionViewDelegate,UICollectionVi
         {
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "upComingCell", for: indexPath) as! UpCommingCell
             
-           cell.upComingImage.kf.setImage(with: URL(string: upComingList[indexPath.row].home_team_logo!))
-            cell.upComingImage2.kf.setImage(with: URL(string: upComingList[indexPath.row].away_team_logo!))
-            cell.upComingLbl1.text = upComingList[indexPath.row].event_home_team
-            cell.upComingLbl2.text = upComingList[indexPath.row].event_away_team
-            cell.timeLbl.text = upComingList[indexPath.row].event_time
-           cell.dateLbl.text = upComingList[indexPath.row].event_date
+           cell.upComingImage.kf.setImage(with: URL(string: upComingList?[indexPath.row].home_team_logo ?? ""))
+            cell.upComingImage2.kf.setImage(with: URL(string: upComingList?[indexPath.row].away_team_logo ?? ""))
+            cell.upComingLbl1.text = upComingList?[indexPath.row].event_home_team
+            cell.upComingLbl2.text = upComingList?[indexPath.row].event_away_team
+            cell.timeLbl.text = upComingList?[indexPath.row].event_time
+           cell.dateLbl.text = upComingList?[indexPath.row].event_date
             // cell.dateLbl.text = "aaaa"
            // cell.upComingImage.image = photos1[indexPath.row]
             return cell
@@ -210,11 +210,11 @@ class LeaguesEventsVC: UIViewController ,UICollectionViewDelegate,UICollectionVi
         {
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "latestCell", for: indexPath) as! LatestCell
             
-            cell.latestImagr.kf.setImage(with: URL(string: latestCVList[indexPath.row].home_team_logo!))
-            cell.latestImage2.kf.setImage(with: URL(string: latestCVList[indexPath.row].away_team_logo!))
-            cell.latestLbl1.text = latestCVList[indexPath.row].event_home_team
-            cell.latestLbl2.text = latestCVList[indexPath.row].event_away_team
-            cell.resultLbl.text = latestCVList[indexPath.row].event_final_result
+            cell.latestImagr.kf.setImage(with: URL(string: latestCVList?[indexPath.row].home_team_logo ?? ""))
+            cell.latestImage2.kf.setImage(with: URL(string: latestCVList?[indexPath.row].away_team_logo ?? ""))
+            cell.latestLbl1.text = latestCVList?[indexPath.row].event_home_team
+            cell.latestLbl2.text = latestCVList?[indexPath.row].event_away_team
+            cell.resultLbl.text = latestCVList?[indexPath.row].event_final_result
             
             
             //cell.latestImagr.image = photos2[indexPath.row]
@@ -223,8 +223,8 @@ class LeaguesEventsVC: UIViewController ,UICollectionViewDelegate,UICollectionVi
     
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "teamsCell", for: indexPath) as! TeamsCell
        // cell.teamsImage.image = photos3[indexPath.row]
-        cell.teamsImage.kf.setImage(with: URL(string: teamsCVList[indexPath.row].team_logo!))
-        cell.teamsLbl.text = teamsCVList[indexPath.row].team_name
+        cell.teamsImage.kf.setImage(with: URL(string: teamsCVList?[indexPath.row].team_logo ?? ""))
+        cell.teamsLbl.text = teamsCVList?[indexPath.row].team_name
         
             return cell
         
