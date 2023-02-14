@@ -25,7 +25,8 @@ class FavouriteTableViewController: UITableViewController
     override func viewWillAppear(_ animated: Bool)
     {
         tableView.reloadData()
-        let appDelegate = UIApplication.shared.delegate as! AppDelegate
+        fetchData()
+        /*let appDelegate = UIApplication.shared.delegate as! AppDelegate
         managedContext = appDelegate.persistentContainer.viewContext
         let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: "Fav")
         do
@@ -35,7 +36,7 @@ class FavouriteTableViewController: UITableViewController
         } catch let error
         {
             print(error.localizedDescription)
-        }
+        }*/
         let reachability : Reachability = Reachability.forInternetConnection()
         if reachability.isReachable()
         {
@@ -127,6 +128,7 @@ class FavouriteTableViewController: UITableViewController
                 do
                 {
                     try self.managedContext.save()
+                    self.fetchData()
                     tableView.reloadData()
                 }catch let error
                 {
@@ -150,5 +152,23 @@ class FavouriteTableViewController: UITableViewController
             print(error.localizedDescription)
         }
         tableView.reloadData()*/
+    }
+}
+
+extension FavouriteTableViewController
+{
+    func fetchData ()
+    {
+        let appDelegate = UIApplication.shared.delegate as! AppDelegate
+        managedContext = appDelegate.persistentContainer.viewContext
+        let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: "Fav")
+        do
+        {
+            savedLeagues = try managedContext.fetch(fetchRequest)
+            tableView.reloadData()
+        } catch let error
+        {
+            print(error.localizedDescription)
+        }
     }
 }
