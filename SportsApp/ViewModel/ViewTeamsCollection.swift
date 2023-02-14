@@ -10,7 +10,7 @@ import Foundation
 class ViewTeamsCV
 {
     var bindResultToLeaguesEventsVC : (() -> ()) = {}
-    var TeamsCVResult : [TeamssEvents]?
+    var TeamsCVResult : [TeamDetails]?
     {
         didSet
         {

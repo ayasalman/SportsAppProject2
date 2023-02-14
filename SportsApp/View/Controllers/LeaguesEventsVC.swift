@@ -9,10 +9,16 @@ import UIKit
 import CoreData
 
 class LeaguesEventsVC: UIViewController ,UICollectionViewDelegate,UICollectionViewDataSource, UICollectionViewDelegateFlowLayout{
-    var sportsType : String?     // type of sport will be in this text (football , basketball , tennis , cricket)
-    var leagueID : Int?          // league ID that is required to show its own events
+    var sportsType : String?                // type of sport will be in this text (football , basketball , tennis , cricket)
+    var leagueID : Int?                     // league ID that is required to show its own events
+    var leagueName : String?                // league Name that is required to save to Core Data
+    var leagueLogo : String?                // league Logo that is required to save to Core Data
+    var isFavourite : Bool?                 // league Fav that is required to save to Core Data
     
-    var teamsCVList : [TeamssEvents] = []
+    var managedContext : NSManagedObjectContext!
+    var resultOfSearch : [NSManagedObject] = []
+    
+    var teamsCVList : [TeamDetails] = []
     var viewTeamssCv : ViewTeamsCV?
     
     var upComingList : [LeagueEvents] = []
@@ -24,7 +30,7 @@ class LeaguesEventsVC: UIViewController ,UICollectionViewDelegate,UICollectionVi
     var arrEvants1 = [Event]()
     var arrEvents2 = [Event]()
     var arrEvents3 = [Event]()
-  var arrEventsTemp = [Event]()
+    var arrEventsTemp = [Event]()
      
     
     var photos1 = [UIImage(named: "image")!, UIImage(named: "begain")!, UIImage(named: "lord")!, UIImage(named: "fault")!]
@@ -82,7 +88,7 @@ class LeaguesEventsVC: UIViewController ,UICollectionViewDelegate,UICollectionVi
         
         pageController.numberOfPages = photos1.count
         
-        startTimer()
+        //startTimer()
         
     }
     
@@ -112,7 +118,28 @@ class LeaguesEventsVC: UIViewController ,UICollectionViewDelegate,UICollectionVi
     
     override func viewWillAppear(_ animated: Bool)
     {
-       // collectionView.reloadData()
+        let appDelegate = UIApplication.shared.delegate as! AppDelegate
+        managedContext = appDelegate.persistentContainer.viewContext
+        let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: "Fav")
+        fetchRequest.predicate = NSPredicate(format: "league_name == %@",leagueName!)
+        do
+        {
+            resultOfSearch = try managedContext.fetch(fetchRequest)
+        }catch let error
+        {
+            print(error.localizedDescription)
+        }
+        
+        if resultOfSearch.count == 0 // not saved to the core data
+        {
+            heartButton.imageView?.image = UIImage(named: "heart")
+            heartButton.setImage(UIImage(systemName: "heart"), for: .normal)
+        }
+        else if resultOfSearch.count != 0 // saved to the device
+        {
+            heartButton.imageView?.image = UIImage(named: "heart.fill")
+            heartButton.setImage(UIImage(systemName: "heart.fill"), for: .normal)
+        }
     }
     
    /*func renderView() {
@@ -126,14 +153,53 @@ class LeaguesEventsVC: UIViewController ,UICollectionViewDelegate,UICollectionVi
     
     @IBAction func favBtn(_ sender: Any) {
         
-        //let favouriteView = storyboard?.instantiateViewController(withIdentifier: "favID") as! FavouriteTableViewController
-        if heartButton.currentImage == UIImage(named: "heart")
+        print("pressed on heart button")
+        let appDelegate = UIApplication.shared.delegate as! AppDelegate
+        managedContext = appDelegate.persistentContainer.viewContext
+        let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: "Fav")
+        print("League Name is: \(leagueName!)")
+        fetchRequest.predicate = NSPredicate(format: "league_name == %@",leagueName!)
+        do
+        {
+            resultOfSearch = try managedContext.fetch(fetchRequest)
+        }catch let error
+        {
+            print(error.localizedDescription)
+        }
+        
+        if resultOfSearch.count == 0 // not saved to the core data
         {
             heartButton.imageView?.image = UIImage(named: "heart.fill")
+            heartButton.setImage(UIImage(systemName: "heart.fill"), for: .normal)
+            isFavourite = true
+            let entity = NSEntityDescription.entity(forEntityName: "Fav", in: managedContext)
+            let favLeagues = NSManagedObject(entity: entity!, insertInto: managedContext)
+            favLeagues.setValue(sportsType, forKey: "sports_type")
+            favLeagues.setValue(leagueID, forKey: "league_key")
+            favLeagues.setValue(leagueName, forKey: "league_name")
+            favLeagues.setValue(isFavourite, forKey: "league_fav")
+            favLeagues.setValue(leagueLogo ?? "https://img.freepik.com/premium-vector/system-software-update-upgrade-concept-loading-process-screen-vector-illustration_175838-2182.jpg?w=826", forKey: "league_logo")
+            do
+            {
+                try managedContext.save()
+            }catch let error
+            {
+                print(error.localizedDescription)
+            }
         }
-        else if heartButton.currentImage == UIImage(named: "heart.fill")
+        else if resultOfSearch.count != 0 // saved to the device
         {
             heartButton.imageView?.image = UIImage(named: "heart")
+            heartButton.setImage(UIImage(systemName: "heart"), for: .normal)
+            let target = resultOfSearch[0]
+            managedContext.delete(target)
+            do
+            {
+                try managedContext.save()
+            } catch let error
+            {
+                print(error.localizedDescription)
+            }
         }
     }
     
@@ -149,28 +215,32 @@ class LeaguesEventsVC: UIViewController ,UICollectionViewDelegate,UICollectionVi
     
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        collectionView.deselectItem(at: indexPath, animated: true)
+        collectionView.deselectItem(at: indexPath, animated: true) as?  TeamsCell
         print("You Tapped On Sports Screen")
+        let teamView = storyboard?.instantiateViewController(withIdentifier: "detailsID") as! TeamDetailsViewController     //1
+        teamView.teamDetailsList = teamsCVList[indexPath.row]
+        teamView.modalPresentationStyle = .fullScreen                                                            //2
+        self.present(teamView, animated: true, completion: nil)
     }
     
-    func startTimer ()
-    {
-        timer = Timer.scheduledTimer(timeInterval: 2.5, target: self, selector: #selector(moveToNextIndex), userInfo: nil, repeats: true)
-    }
-    
-    @objc func moveToNextIndex()
-    {
-        if currentCellIndex < photos1.count - 1
-        {
-            currentCellIndex += 1
-        }
-        else
-        {
-            currentCellIndex = 0
-        }
-        UpComingCollection.scrollToItem(at: IndexPath(item: currentCellIndex, section: 0), at: .centeredHorizontally, animated: true)
-       pageController.currentPage = currentCellIndex
-    }
+//    func startTimer ()
+//    {
+//        timer = Timer.scheduledTimer(timeInterval: 2.5, target: self, selector: #selector(moveToNextIndex), userInfo: nil, repeats: true)
+//    }
+//
+//    @objc func moveToNextIndex()
+//    {
+//        if currentCellIndex < photos1.count - 1
+//        {
+//            currentCellIndex += 1
+//        }
+//        else
+//        {
+//            currentCellIndex = 0
+//        }
+//        UpComingCollection.scrollToItem(at: IndexPath(item: currentCellIndex, section: 0), at: .centeredHorizontally, animated: true)
+//       pageController.currentPage = currentCellIndex
+//    }
     
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {

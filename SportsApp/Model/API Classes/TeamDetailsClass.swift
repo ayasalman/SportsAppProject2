@@ -7,7 +7,7 @@
 
 import Foundation
 
-class TeamDetails : Decodable
+class TeamDetailsClass : Decodable
 {
     var team_key : Int?
     var team_name : String?

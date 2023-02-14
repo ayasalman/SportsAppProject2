@@ -8,35 +8,34 @@
 import UIKit
 import Kingfisher
 
-class TeamDetailsViewController: UIViewController {
+class TeamDetailsViewController: UIViewController
+{
 
     @IBOutlet var teamImageDetails: UIImageView!
     @IBOutlet var teamNameDetails: UILabel!
+    @IBOutlet var playerTable: UITableView!
     
-    var sportsType : String?
-    var teamID : Int?
     var teamDetailsList : TeamDetails?
     var viewTeamDetails : ViewTeamDetails?
-//    let imageURL = URL(string: teamDetailsList ?? "https://img.freepik.com/premium-vector/system-software-update-upgrade-concept-loading-process-screen-vector-illustration_175838-2182.jpg?w=826")
+    
+    var players : [Player]?
     
     override func viewDidLoad()
     {
         super.viewDidLoad()
-        viewTeamDetails = ViewTeamDetails()
-        viewTeamDetails?.getLeagues(sportType: sportsType ?? "football", teamID: teamID ?? 205)
-        viewTeamDetails?.bindResultToTeamDetailsViewController = { () in self.renderView()}
-        
+        playerTable.delegate = self
+        playerTable.dataSource = self
+        players = teamDetailsList?.player ?? []
+        teamNameDetails.text = teamDetailsList?.team_name
         let imageURL = URL(string: teamDetailsList?.team_logo ?? "https://img.freepik.com/premium-vector/system-software-update-upgrade-concept-loading-process-screen-vector-illustration_175838-2182.jpg?w=826")
         teamImageDetails.kf.setImage(with: imageURL)
-        teamNameDetails.text = teamDetailsList?.team_name
+        playerTable.reloadData()
+      
     }
     
-    func renderView()
+    override func viewWillAppear(_ animated: Bool)
     {
-        DispatchQueue.main.async
-        {
-            self.teamDetailsList = self.viewTeamDetails?.teamDetailsResult
-        }
+        playerTable.reloadData()
     }
     
     @IBAction func backButton(_ sender: Any)
@@ -54,4 +53,44 @@ class TeamDetailsViewController: UIViewController {
     }
     */
 
+}
+
+
+extension TeamDetailsViewController : UITableViewDataSource , UITableViewDelegate
+{
+    func numberOfSections(in tableView: UITableView) -> Int
+    {
+        return 1
+    }
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int
+    {
+        return players?.count ?? 5
+    }
+    
+    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String?
+    {
+        return "Players"
+    }
+    
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat
+    {
+        return 75
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell
+    {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "playersCell", for: indexPath) as! TeamDetailsTableViewCell
+        
+        cell.playerName.adjustsFontSizeToFitWidth = true
+        cell.playerName.text = players?[indexPath.row].player_name ?? ""
+        cell.playerNumber.text = players?[indexPath.row].player_number ?? ""
+        
+        let imageURL = URL(string: players?[indexPath.row].player_image ?? "https://img.freepik.com/premium-vector/system-software-update-upgrade-concept-loading-process-screen-vector-illustration_175838-2182.jpg?w=826")
+        cell.playerImage.kf.setImage(with: imageURL, placeholder: "https://img.freepik.com/premium-vector/system-software-update-upgrade-concept-loading-process-screen-vector-illustration_175838-2182.jpg?w=826" as? Placeholder)
+        
+        return cell
+    }
+    
+    
 }
