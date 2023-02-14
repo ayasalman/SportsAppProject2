@@ -12,7 +12,7 @@ class TeamDetails : Decodable
     var team_key : Int?
     var team_name : String?
     var team_logo : String?
-    var player : [Player]?
+    var players : [Player]?
 }
 
 class Player:Decodable
