@@ -10,7 +10,7 @@ import Foundation
 class ViewTeamDetails
 {
     var bindResultToTeamDetailsViewController : (()->()) = {}
-    var teamDetailsResult : TeamDetails?
+    var teamDetailsResult : TeamDetailsClass?
     {
         didSet
         {

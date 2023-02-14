@@ -10,7 +10,7 @@ import Foundation
 class TeamssResult : Decodable
 {
     var success : Int?
-    var result : [TeamssEvents]
+    var result : [TeamDetails]
 }
 
 

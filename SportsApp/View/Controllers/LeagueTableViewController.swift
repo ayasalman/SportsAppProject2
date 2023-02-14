@@ -74,7 +74,9 @@ class LeagueTableViewController: UITableViewController
         print("you tapped me")
         let eventView = storyboard?.instantiateViewController(withIdentifier: "eventsID") as! LeaguesEventsVC     //1
         eventView.sportsType = sportType  // to give the sport type to league event screen to easy access to API
-        eventView.leagueID = leagueList[indexPath.row].league_key // to give league ID to league event screen
+        eventView.leagueID = leagueList[indexPath.row].league_key       // to give league ID to league event screen
+        eventView.leagueName = leagueList[indexPath.row].league_name    // to give league Name to league event screen
+        eventView.leagueLogo = leagueList[indexPath.row].league_logo    // to give league Logo to league event screen
         eventView.modalPresentationStyle = .fullScreen                                                            //2
         self.present(eventView, animated: true, completion: nil)                                                  //3
     }

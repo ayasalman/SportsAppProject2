@@ -9,6 +9,6 @@ import Foundation
 
 class TeamDetailsResult : Decodable
 {
-    var result : TeamDetails
+    var result : TeamDetailsClass
     var success : Int?
 }
